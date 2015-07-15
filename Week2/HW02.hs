@@ -1,5 +1,5 @@
 {-
-Name: <your name here>
+Name: <Ouanis Seddaoui>
 Collaborators: <your collaborators here, or "none">
 Notes: <any particular notes about your work -- what you struggled with,
         what's not working, what's really cool, etc.>
@@ -34,7 +34,13 @@ type STemplate = Template
 
 -- Write your code below:
 formableBy :: String -> Hand -> Bool
-formableBy = undefined
+formableBy [x] [y] = x == y
+formableBy _ [] = False
+formableBy [] _ = True
+formableBy (x:xs) hand = if elem x hand 
+                            then formableBy xs (delete x hand)
+                         else
+                            formableBy xs hand    
 
 wordsFrom :: Hand -> [String]
 wordsFrom hand = filter (`formableBy` hand) allWords
