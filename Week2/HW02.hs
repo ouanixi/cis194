@@ -43,5 +43,16 @@ formableBy (x:xs) hand = if elem x hand
 
 wordsFrom :: Hand -> [String]
 wordsFrom hand = filter (`formableBy` hand) allWords
-
+    
 wordFitsTemplate :: Template -> Hand -> String -> Bool
+wordFitsTemplate tem hand str = formableBy str (hand ++ tem) && fits str tem
+
+fits :: String -> Template -> Bool
+fits [] [] = True
+fits _ [] = False
+fits [] _ = False
+fits (x:xs) ('?':ys) = fits xs ys
+fits (x:xs) (y:ys) | x==y = fits xs ys
+                   | otherwise = False 
+
+
