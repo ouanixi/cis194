@@ -65,3 +65,13 @@ wordsFittingTemplate tem hand = filter (wordFitsTemplate tem hand) allWords
 --
 scrabbleValueWord :: String -> Int
 scrabbleValueWord word = foldr ((+) . scrabbleValue ) 0 word 
+
+--
+bestWords :: [String] -> [String]
+bestWords [] = []
+bestWords words = [x | x <- words, scrabbleValueWord x == max]
+    where max = maximum[scrabbleValueWord y | y <- words]
+        
+             
+
+
