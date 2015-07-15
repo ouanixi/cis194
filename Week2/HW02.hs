@@ -64,5 +64,4 @@ wordsFittingTemplate tem hand = filter (wordFitsTemplate tem hand) allWords
 
 --
 scrabbleValueWord :: String -> Int
-scrabbleValueWord [] = 0
 scrabbleValueWord word = foldr ((+) . scrabbleValue ) 0 word 
