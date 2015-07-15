@@ -56,3 +56,5 @@ fits (x:xs) (y:ys) | x==y = fits xs ys
                    | otherwise = False 
 
 
+wordsFittingTemplate :: Template -> Hand -> [String]
+wordsFittingTemplate tem hand = filter (wordFitsTemplate tem hand) allWords
