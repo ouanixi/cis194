@@ -9,6 +9,7 @@ module HW02 where
 
 import Words
 import Data.List
+import Data.Char
 
 -- Though a Scrabble hand is the same Haskell type as a Scrabble word, they
 -- have different properties. Specifically, a hand is unordered whereas a word
@@ -70,7 +71,19 @@ scrabbleValueWord word = foldr ((+) . scrabbleValue ) 0 word
 bestWords :: [String] -> [String]
 bestWords words = [x | x <- words, scrabbleValueWord x == max]
     where max = maximum[scrabbleValueWord y | y <- words]
-        
              
+--
+scrabbleValueTemplate :: STemplate -> String -> Int
+scrabbleValueTemplate = helper 1 0
 
-
+--
+helper :: Int -> Int -> STemplate -> String -> Int
+helper a b [] [] = a * b
+helper a b (t:ts) (c:cs)
+    | t == '?'  = helper a (b + val) ts cs
+    | t == 'D'  = helper a (b + val * 2) ts cs
+    | t == 'T'  = helper a (b + val * 3) ts cs
+    | t == '2'  = helper (a * 2) (b + val) ts cs
+    | t == '3'  = helper (a * 3) (b + val) ts cs
+    | otherwise = helper a (b + val) ts cs
+    where val = scrabbleValue c
